@@ -1,1 +1,0 @@
-(princ(list (and (listp 3) t) (+ 1 2)))
