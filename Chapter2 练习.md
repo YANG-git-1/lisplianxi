@@ -106,7 +106,7 @@
                 0
                 (if (eql (car x) 'a)
                     (let ((z (atimes (cdr x))))
-                        (setf z (+ z 1)))
+                        (+ z 1))
                     (atimes (cdr x))
                 )
             )
