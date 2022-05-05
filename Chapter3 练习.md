@@ -54,15 +54,35 @@ member函数内部使用的eql 即使(eql '(a) '(a))也会返回nil*
 
                 (pos+ '(7 5 1 4))
                 (7 6 3 7)
+使用 (a) 递归 (b) 迭代 (c) mapcar 来定义这个函数。
+
+(a)递归
+                (defun pos+ (x)
+                    (setf x (reverse x))
+                    (if (equal (length x) 1)
+                        x
+                        (progn 
+                        (setf (car x) (+ (car x) (- (length x) 1)))
+                        (append (pos+ (reverse (cdr x))) (list (car x))))
+                    )
+                )
 
 -------------
-
+(b)迭代
                 (defun pos+ (x)
                     (do ((n (- (length x) 1) (- n 1)))
                     ((equal n 0))
                         (setf (nth n x) (+ n (nth n x)))
                     )
                     x
+                )
+
+---------------
+(c)mapcar
+                (defun pos+ (x)
+                    (let ((i -1))
+                        (mapcar #'(lambda (y) (setf y (+ y (setf i (+ i 1)) )  )) x) 
+                    )      
                 )
 
 
